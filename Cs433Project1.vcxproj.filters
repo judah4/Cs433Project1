@@ -24,9 +24,15 @@
     <ClCompile Include="PcbTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ReadyQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PcbTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadyQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

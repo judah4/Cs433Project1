@@ -8,6 +8,11 @@ enum PcbState {
 struct ProcessControlBlock {
 	int id;
 	PcbState state;
+	int priority;
+	ProcessControlBlock() {
+		state = PcbState::NEW;
+		priority = 1;
+	}
 };
 
 static char const* StateName(PcbState state) {

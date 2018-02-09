@@ -22,9 +22,11 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PcbTable.cpp" />
     <ClCompile Include="ProcessControlBlock.h" />
+    <ClCompile Include="ReadyQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PcbTable.h" />
+    <ClInclude Include="ReadyQueue.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
