@@ -19,11 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ProcessControlBlock.h" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="PcbTable.cpp" />
+    <ClCompile Include="ProcessControlBlock.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="ProcessControlBlock.cpp" />
+    <ClInclude Include="PcbTable.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
