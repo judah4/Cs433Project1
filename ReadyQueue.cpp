@@ -19,6 +19,11 @@ void ReadyQueue::insertProc(ProcessControlBlock* proc) {
 	proc->state = PcbState::READY;
 }
 ProcessControlBlock* ReadyQueue::removeHighestProc() {
+
+	if (m_list->isEmpty()) {
+		return nullptr;
+	}
+
 	ProcessControlBlock* first = m_list->begin()->data->data;
 	m_list->remove(first, first->priority);
 	first->state = PcbState::RUNNING;

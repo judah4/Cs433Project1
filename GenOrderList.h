@@ -188,7 +188,7 @@ void GenOrderList<T>::remove(T* process, int order) {
 
 template<typename T>
 bool GenOrderList<T>::isEmpty() {
-	return m_link != nullptr;
+	return m_link == nullptr;
 }
 
 template<typename T>
