@@ -32,3 +32,5 @@ Debug/
 \.vs/
 
 example/
+
+Release/
