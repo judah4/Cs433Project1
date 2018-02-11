@@ -35,5 +35,8 @@
     <ClInclude Include="ReadyQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GenOrderList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

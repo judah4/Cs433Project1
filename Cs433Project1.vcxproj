@@ -25,6 +25,7 @@
     <ClCompile Include="ReadyQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GenOrderList.h" />
     <ClInclude Include="PcbTable.h" />
     <ClInclude Include="ReadyQueue.h" />
   </ItemGroup>

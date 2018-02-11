@@ -1,18 +1,10 @@
 #ifndef PCB_H   // if x.h hasn't been included yet...
 #define PCB_H
 
+#include <iostream>
+
 enum PcbState {
 	NEW, READY, RUNNING, WAITING, TERMINATED
-};
-
-struct ProcessControlBlock {
-	int id;
-	PcbState state;
-	int priority;
-	ProcessControlBlock() {
-		state = PcbState::NEW;
-		priority = 1;
-	}
 };
 
 static char const* StateName(PcbState state) {
@@ -31,5 +23,21 @@ static char const* StateName(PcbState state) {
 	}
 	return "UNKNOWN";
 }
+
+struct ProcessControlBlock {
+	int id;
+	PcbState state;
+	int priority;
+	void print() {
+		std::cout << "Id:" << id << " State:" << StateName(state) << " Priority:" << priority << std::endl;
+
+	}
+	ProcessControlBlock() {
+		state = PcbState::NEW;
+		priority = 1;
+	}
+};
+
+
 
 #endif
