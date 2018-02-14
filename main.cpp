@@ -94,7 +94,7 @@ void Test1() {
 
 }
 
-double Test2(bool printTable, bool randomeSeed) {
+double Test2(bool printTable, bool randomeSeed, bool onlyNew) {
 	PcbTable* table = new PcbTable();
 	AddTestProcs(table, randomeSeed);
 	ReadyQueue* readyQueue = new ReadyQueue();
@@ -112,6 +112,7 @@ double Test2(bool printTable, bool randomeSeed) {
 	//c++11 goodness
 	auto start = std::chrono::system_clock::now();
 
+	ProcessListLink* lastLink = NULL;
 	for (int cnt = 0; cnt < 1000000; cnt++)
 	{
 		//so many iterations
@@ -121,14 +122,41 @@ double Test2(bool printTable, bool randomeSeed) {
 		}
 		else {
 			//add
-			ProcessListLink* link = table->begin();
+
+			ProcessListLink* link = NULL;
+			if(lastLink != NULL)
+			{
+				link = lastLink->nextLink;
+			}
+			if(link == NULL)
+			{
+				link = table->begin();
+			}
+			
+			
 			while (link != NULL) {
-				if (link->proc->state == PcbState::NEW) {
+				if ((!onlyNew && link->proc->state != PcbState::READY ) ||  link->proc->state == PcbState::NEW) {
 					readyQueue->insertProc(link->proc);
+					lastLink = link;
 					break;
 				}
 
 				link = link->nextLink;
+
+				if(lastLink != NULL)
+				{
+					//loop around if needed. Check if at last link;
+					if(link == NULL)
+					{
+						link = table->begin();
+					}
+					if(link == lastLink)
+					{
+						lastLink = NULL; //reset
+						break;
+					}
+				}
+
 			}
 		}
 	}
@@ -150,22 +178,23 @@ int main()
 {
 	std::cout << "Process Control by Judah Perez" << std::endl;
 	Test1();
+	bool onlyNew = false;
 	std::cout << "*---Test2---*" << std::endl;
 	std::cout << "1000000 interation test" << std::endl;
-	Test2(true, false);
+	Test2(true, false, onlyNew);
 	
 	std::cout << "Testing with same seed, 1000000 iterations" << std::endl;
-	Test2(false, false);
-	Test2(false, false);
-	Test2(false, false);
+	Test2(false, false, onlyNew);
+	Test2(false, false, onlyNew);
+	Test2(false, false, onlyNew);
 	std::cout << "Testing with random seeds, 1000000 iterations" << std::endl;
 	int runsCount = 5;
 	double totalTime = 0;
-	totalTime += Test2(false, true);
-	totalTime += Test2(false, true);
-	totalTime += Test2(false, true);
-	totalTime += Test2(false, true);
-	totalTime += Test2(false, true);
+	for (int cnt = 0; cnt < runsCount; cnt++)
+	{
+		totalTime += Test2(false, true, onlyNew);
+
+	}
 
 	//generating total
 	double averageTime = totalTime / runsCount;
