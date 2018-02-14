@@ -23,7 +23,7 @@ static char const* StateName(PcbState state) {
 	}
 	return "UNKNOWN";
 }
-
+//process control block, holds state and simple data(there is no data)
 struct ProcessControlBlock {
 	int id;
 	PcbState state;

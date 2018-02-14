@@ -1,3 +1,8 @@
+/*Judah Perez
+*2/11/18
+* CS 433 Project 1
+* Ready Queue with PCB Table.
+*/
 
 #include <iostream> 
 #include <chrono>
@@ -5,6 +10,7 @@
 #include "PcbTable.h"
 #include "ReadyQueue.h"
 
+//setup test processes
 void AddTestProcs(PcbTable* table, bool randomSeed) {
 	if (randomSeed) {
 		srand(time(NULL));
@@ -26,11 +32,12 @@ void AddTestProcs(PcbTable* table, bool randomSeed) {
 
 }
 
+//adding to ready queue
 void AddToProcess(PcbTable* table, ReadyQueue* queue, int procs[]) {
 	ProcessListLink* link = table->begin();
 	while (link != NULL) {
-
-		for (int i = 0; i < sizeof(procs); i++)
+		int sizeOfProcs = sizeof(procs);
+		for (int i = 0; i < sizeOfProcs; i++)
 		{
 			if (link->proc->id == procs[i]) {
 				queue->insertProc(link->proc);
@@ -42,12 +49,7 @@ void AddToProcess(PcbTable* table, ReadyQueue* queue, int procs[]) {
 	}
 }
 
-void Test1() {
-	PcbTable* table = new PcbTable();
-	AddTestProcs(table, false);
-
-	int firstProcs[4] = { 5, 1, 8, 11 };
-	int secRoundProcs[5] = { 3, 7, 2, 12, 9 };
+void PrintTable(PcbTable* table) {
 	std::cout << "--PCB Table--" << std::endl;
 	//test print
 	if (!table->isEmpty()) {
@@ -59,6 +61,18 @@ void Test1() {
 		}
 
 	}
+}
+
+void Test1() {
+	std::cout << "*---Test1---*" << std::endl;
+	PcbTable* table = new PcbTable();
+	AddTestProcs(table, false);
+
+	int firstProcs[4] = { 5, 1, 8, 11 };
+	int secRoundProcs[5] = { 3, 7, 2, 12, 9 };
+	std::cout << "--PCB Table--" << std::endl;
+	//test print
+	PrintTable(table);
 
 	ReadyQueue* readyQueue = new ReadyQueue();
 	if (!table->isEmpty()) {
@@ -80,7 +94,7 @@ void Test1() {
 
 }
 
-void Test2(bool printTable, bool randomeSeed) {
+double Test2(bool printTable, bool randomeSeed) {
 	PcbTable* table = new PcbTable();
 	AddTestProcs(table, randomeSeed);
 	ReadyQueue* readyQueue = new ReadyQueue();
@@ -119,25 +133,43 @@ void Test2(bool printTable, bool randomeSeed) {
 		}
 	}
 
+	//fanct c++11 stuff
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end - start;
 	std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
+
+	if (printTable) {
+		PrintTable(table);
+	}
+
+	return elapsed_seconds.count();
+
 }
 
 int main()
 {
 	std::cout << "Process Control by Judah Perez" << std::endl;
 	Test1();
+	std::cout << "*---Test2---*" << std::endl;
 	std::cout << "1000000 interation test" << std::endl;
 	Test2(true, false);
+	
 	std::cout << "Testing with same seed, 1000000 iterations" << std::endl;
 	Test2(false, false);
 	Test2(false, false);
 	Test2(false, false);
-	std::cout << "Testing with randome seeds, 1000000 iterations" << std::endl;
-	Test2(false, true);
-	Test2(false, true);
-	Test2(false, true);
+	std::cout << "Testing with random seeds, 1000000 iterations" << std::endl;
+	int runsCount = 5;
+	double totalTime = 0;
+	totalTime += Test2(false, true);
+	totalTime += Test2(false, true);
+	totalTime += Test2(false, true);
+	totalTime += Test2(false, true);
+	totalTime += Test2(false, true);
+
+	//generating total
+	double averageTime = totalTime / runsCount;
+	std::cout << "average elapsed time: " << averageTime << "s\n";
 	std::cout << "Press any to continue..." << std::endl;
 	int pause = 0;
 	std::cin >> pause;

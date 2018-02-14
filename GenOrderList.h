@@ -1,5 +1,6 @@
 #pragma once
 
+//general node for the inner data
 template<typename T>
 struct GenNode {
 	T* data;
@@ -9,6 +10,7 @@ struct GenNode {
 	}
 };
 
+//general ordered node
 template<typename T>
 struct GenOrderNode {
 	GenNode<T>* data;
@@ -26,7 +28,7 @@ struct GenOrderNode {
 	void remove(T* process);
 };
 
-
+//ordered linked list
 template<typename T>
 class GenOrderList
 {
@@ -43,7 +45,7 @@ public:
 	GenOrderNode<T>* begin();
 };
 
-//template implentation
+//template implentation, had issues with its own seperate cpp file so I put it here.
 
 template<typename T>
 void GenOrderNode<T>::add(T* process)
@@ -181,7 +183,7 @@ void GenOrderList<T>::remove(T* process, int order) {
 		}
 
 		prevLink = link;
-		link->next;
+		link = link->next;
 	}
 
 }

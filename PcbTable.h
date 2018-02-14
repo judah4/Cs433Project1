@@ -12,6 +12,7 @@ struct ProcessListLink {
 	}
 };
 
+//pcb table with its own link list implentation. I did this first.
 class PcbTable
 {
 private:
