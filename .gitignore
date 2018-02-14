@@ -1,7 +1,7 @@
 # Compiled Object files
 *.slo
 *.lo
-*.o
+#*.o
 *.obj
 
 # Precompiled Headers
@@ -28,9 +28,8 @@
 *.app
 
 Debug/
-
+Release/
 \.vs/
 
 example/
 
-Release/
